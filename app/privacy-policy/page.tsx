@@ -323,7 +323,7 @@ export default function PrivacyPolicy() {
                   transition={{ duration: 0.6, delay: 1.1 }}
                 >
                   <h2 className="text-2xl font-bold gradient-text-secondary mb-4">
-                    9. Children's Privacy
+                    9. Children&#39;s Privacy
                   </h2>
                   <div className="text-gray-300 space-y-3">
                     <p>
@@ -354,8 +354,8 @@ export default function PrivacyPolicy() {
                       for material changes
                     </p>
                     <p>
-                      • <strong>Update Date:</strong> Revise the "Effective
-                      Date" at the top of this policy
+                      • <strong>Update Date:</strong> Revise the &quot;Effective
+                      Date&quot; at the top of this policy
                     </p>
                     <p>
                       • <strong>Website Notice:</strong> Post prominent notices

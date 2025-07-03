@@ -12,9 +12,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
 
 const AccuracySection = () => {
@@ -50,7 +47,13 @@ const AccuracySection = () => {
     { name: "F1-Score", value: 90.6, color: "#F59E0B" },
   ];
 
-  const CustomTooltip = ({ active, payload, label }) => {
+  interface CustomTooltipProps {
+    active?: boolean;
+    payload?: { value: number }[];
+    label?: string;
+  }
+
+  const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     if (active && payload && payload.length) {
       return (
         <div className="glass-card p-3 border border-white/20">

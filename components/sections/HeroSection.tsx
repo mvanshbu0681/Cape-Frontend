@@ -19,7 +19,7 @@ const HeroSection = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: "easeInOut" as const,
       },
     },
   };
@@ -32,7 +32,7 @@ const HeroSection = () => {
       transition: {
         duration: 0.8,
         delay: 0.3,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
@@ -45,7 +45,7 @@ const HeroSection = () => {
       transition: {
         duration: 0.6,
         delay: 0.6,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
@@ -211,7 +211,7 @@ const HeroSection = () => {
           className="glass-card p-4 text-sm font-mono text-green-400"
         >
           <div className="text-xs text-gray-500 mb-2">Input:</div>
-          <div>"John Smith works at ACME Corp"</div>
+          <div>&quot;John Smith works at ACME Corp&quot;</div>
         </motion.div>
       </motion.div>
 
@@ -227,7 +227,7 @@ const HeroSection = () => {
           className="glass-card p-4 text-sm font-mono text-blue-400"
         >
           <div className="text-xs text-gray-500 mb-2">Output:</div>
-          <div>"[PERSON_001] works at [ORG_001]"</div>
+          <div>&quot;[PERSON_001] works at [ORG_001]&quot;</div>
         </motion.div>
       </motion.div>
     </section>

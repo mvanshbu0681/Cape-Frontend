@@ -18,7 +18,7 @@ const TestingPage = () => {
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [activeTab, setActiveTab] = useState("text");
+  //const [activeTab, setActiveTab] = useState("text");
 
   const exampleTexts = [
     {
@@ -86,6 +86,7 @@ const TestingPage = () => {
       setOutputText(processed);
       toast.success("Text processed successfully!");
     } catch (error) {
+      console.error("Processing error:", error);
       toast.error("Processing failed. Please try again.");
     } finally {
       setIsProcessing(false);
@@ -98,12 +99,12 @@ const TestingPage = () => {
     toast.success("Cleared successfully");
   };
 
-  const handleCopy = (text) => {
+  const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
     toast.success("Copied to clipboard!");
   };
 
-  const loadExample = (example) => {
+  const loadExample = (example: { title: string; text: string }) => {
     setInputText(example.text);
     setOutputText("");
     toast.success(`Loaded: ${example.title}`);
@@ -150,7 +151,7 @@ const TestingPage = () => {
             transition={{ delay: 0.2 }}
             className="flex flex-wrap justify-center gap-4 mb-8"
           >
-            {exampleTexts.map((example, index) => (
+            {exampleTexts.map((example) => (
               <motion.button
                 key={example.title}
                 whileHover={{ scale: 1.05 }}

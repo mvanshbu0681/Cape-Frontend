@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   EnvelopeIcon,
-  PhoneIcon,
   MapPinIcon,
   ArrowUpIcon,
 } from "@heroicons/react/24/outline";
