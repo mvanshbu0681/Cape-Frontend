@@ -44,50 +44,41 @@ const TestingPage = () => {
     setIsProcessing(true);
 
     try {
-      // Simulate API call with realistic delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Mock pseudonymization logic
-      let processed = inputText;
-
-      // Replace names
-      processed = processed.replace(/John Smith/g, "[PERSON_001]");
-      processed = processed.replace(/Sarah Johnson/g, "[PERSON_002]");
-      processed = processed.replace(/Sarah Williams/g, "[PERSON_003]");
-      processed = processed.replace(/David Chen/g, "[PERSON_004]");
-      processed = processed.replace(/Michael Davis/g, "[PERSON_005]");
-      processed = processed.replace(/Jane Rodriguez/g, "[PERSON_006]");
-
-      // Replace organizations
-      processed = processed.replace(/Mayo Clinic/g, "[ORG_001]");
-      processed = processed.replace(/Microsoft Corporation/g, "[ORG_002]");
-      processed = processed.replace(/Apple Inc\./g, "[ORG_003]");
-      processed = processed.replace(/XYZ Corporation/g, "[ORG_004]");
-
-      // Replace locations
-      processed = processed.replace(
-        /123 Tech Avenue, Seattle, WA 98101/g,
-        "[LOC_001]"
+      // Call the real CAPE API
+      const response = await fetch(
+        "https://cape-backend-bsbtg6c7g3cxbchf.centralindia-01.azurewebsites.net/analyze",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer dev-api-key-12345",
+          },
+          body: JSON.stringify({
+            text: inputText,
+            mode: "audit",
+          }),
+        }
       );
-      processed = processed.replace(/Seattle/g, "[LOC_002]");
 
-      // Replace emails and phones
-      processed = processed.replace(/john\.smith@email\.com/g, "[EMAIL_001]");
-      processed = processed.replace(/\(555\) 123-4567/g, "[PHONE_001]");
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
 
-      // Replace dates
-      processed = processed.replace(/1985-03-15/g, "[DATE_001]");
-      processed = processed.replace(/2024-01-15/g, "[DATE_002]");
-      processed = processed.replace(/March 10, 2024/g, "[DATE_003]");
+      const data = await response.json();
 
-      // Replace IDs
-      processed = processed.replace(/Bar ID: 12345/g, "Bar ID: [ID_001]");
+      // Use the pseudonymized text from the API response
+      setOutputText(data.pseudonymized || "No pseudonymized text returned");
 
-      setOutputText(processed);
-      toast.success("Text processed successfully!");
+      // Show success message with entity count
+      const entityCount = data.entities?.length || 0;
+      toast.success(
+        `Text processed successfully! Found ${entityCount} sensitive entities.`
+      );
     } catch (error) {
       console.error("Processing error:", error);
-      toast.error("Processing failed. Please try again.");
+      toast.error(
+        "Processing failed. Please check your connection and try again."
+      );
     } finally {
       setIsProcessing(false);
     }
